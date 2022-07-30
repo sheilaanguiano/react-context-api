@@ -1,4 +1,8 @@
 import React, { Component } from 'react';
+/* 2. You don't need to include /index.js
+in the import path, when resolving the import path to the context directory node will look for an index file and load it
+*/
+import { Provider } from './Context';
 import Header from './Header';
 import PlayerList from './PlayerList';
 import AddPlayerForm from './AddPlayerForm';
@@ -63,17 +67,23 @@ class App extends Component {
 
   render() {
     return (
-      <div className="scoreboard">
-        <Header players={this.state.players} />
+    /*
+    * 3. Wrap everything after the return statement inside the Provider tag
+    4. We'll passed the value state > Stats.js
+    */ 
+      <Provider value={this.state.players}>
+        <div className="scoreboard">
+          <Header />
 
-        <PlayerList 
-          players={this.state.players} 
-          changeScore={this.handleScoreChange}
-          removePlayer={this.handleRemovePlayer}   
-        />
-        
-        <AddPlayerForm addPlayer={this.handleAddPlayer} />
-      </div>
+          <PlayerList 
+            players={this.state.players} 
+            changeScore={this.handleScoreChange}
+            removePlayer={this.handleRemovePlayer}   
+          />
+          
+          <AddPlayerForm addPlayer={this.handleAddPlayer} />
+        </div>
+      </Provider>
     );
   }
 }
