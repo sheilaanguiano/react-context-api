@@ -71,13 +71,17 @@ class App extends Component {
     * 3. Wrap everything after the return statement inside the Provider tag
     4. We'll passed the value state > Stats.js
     */ 
-      <Provider value={this.state.players}>
+      <Provider value={{
+        //Inside this object, we'll pass in our data with a set of properties
+        players: this.state.players,
+        actions: {
+          changeScore: this.handleScoreChange
+        }
+      }}>
         <div className="scoreboard">
           <Header />
 
           <PlayerList 
-            players={this.state.players} 
-            changeScore={this.handleScoreChange}
             removePlayer={this.handleRemovePlayer}   
           />
           
